@@ -7,12 +7,15 @@ Return the quotient after dividing dividend by divisor. */
 public class DivideTwoIntegers {
     public int divide(int dividend, int divisor) {
         // division is like subtraction, but several times
-        // need to subtract the divider until come to zero
+        // need to subtract the divider until come to divisor
         // and then count how many iterations it took
-        int result = 0, count = 0;
-        while (dividend!=0) {
+        int count = 0;
+        
+        while (dividend >= divisor) {
             dividend = dividend - divisor;
-            count++;
+            if (dividend > 0) {
+                count++;
+            }
         }
         return count;
     }

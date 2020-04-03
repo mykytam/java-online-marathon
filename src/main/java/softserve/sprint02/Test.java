@@ -9,9 +9,12 @@ public class Test {
 
         ReverseInteger reverseInteger = new ReverseInteger();
         System.out.println(reverseInteger.reverse(1235));
-*/
+
         DivideTwoIntegers divideTwoIntegers = new DivideTwoIntegers();
-        System.out.println(divideTwoIntegers.divide(8,3));
+        System.out.println(divideTwoIntegers.divide(10,3));
+        */
+        Sqrtx sqrtx = new Sqrtx();
+        System.out.println(sqrtx.mySqrt(8));
 
     }
 }
