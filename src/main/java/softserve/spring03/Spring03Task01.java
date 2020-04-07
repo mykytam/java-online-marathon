@@ -7,6 +7,5 @@ In the case of equality of elements in the first column, the elements of the sec
 
 public class Spring03Task01 {
     public int[][] arrSort(int[][] arr) {
-        // Code
     }
 }

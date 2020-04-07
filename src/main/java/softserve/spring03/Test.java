@@ -39,5 +39,17 @@ public class Test {
         compare.listMapCompare(list, map);
         */
 
+        /*
+        Fourth task
+        Map<String, String> phones = new HashMap();
+        phones.put("0967654321", "Petro");
+        phones.put("0677654321", null);
+        phones.put("0501234567", "Ivan");
+        phones.put("0970011223", "Stepan");
+        phones.put("0631234567", "Ivan");
+
+        Spring03Task04 newMap = new Spring03Task04();
+        System.out.println(newMap.createNotebook(phones));
+         */
     }
 }
