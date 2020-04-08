@@ -2,6 +2,7 @@ package softserve.spring03;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /*
@@ -15,9 +16,38 @@ public class Spring03Task05 {
     public static class Student {
         private int id;
         private String name;
-        // Constructor, metthods, Code
+
+        public Student(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "Student{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Student student = (Student) o;
+            return id == student.id &&
+                    Objects.equals(name, student.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name);
+        }
     }
     public Set<Student> commonStudents(List<Student> list1, List<Student> list2) {
-        // Code
+        list1.retainAll(list2);
+        System.out.println(list1);
+        Set<Student> sameStudent = new HashSet<>(list1);
+        return sameStudent;
     }
 }
