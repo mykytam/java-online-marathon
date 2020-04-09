@@ -1,4 +1,4 @@
-package softserve.spring03;
+package softserve.sprint03;
 
 /*
 Create a arrSort() method of the MyUtils class to sort a two-dimensional integer array by descending the elements of the first column.

@@ -1,4 +1,4 @@
-package softserve.spring03;
+package softserve.sprint03;
 
 import java.util.HashSet;
 import java.util.List;
