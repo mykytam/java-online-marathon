@@ -18,11 +18,6 @@ public class Sprint04Task02 {
 
         Employee employees[]  = {emp1, emp2};
 
-        String employeesInfo;
-
-        for (int i = 0; i <employees.length; i++) {
-            employeesInfo ="[{fullName: \"" + employees[i].fullName + "\", salary: " + employees[i].salary + "}]";
-            System.out.println(employeesInfo);
-        }
+        String employeesInfo ="[{fullName: \"" + emp1.fullName + "\", salary: " + emp1.salary + "}, {fullName: \"" + emp2.fullName + "\", salary: " + emp2.salary + "}]";
     }
 }
