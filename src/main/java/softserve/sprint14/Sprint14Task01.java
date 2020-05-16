@@ -6,26 +6,25 @@ package softserve.sprint14;
 // Throw NullPointerException if map is null.
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class Sprint14Task01 {
-    public class MyUtils {
-        public Stream<String> nameList(Map<String, Stream<String>> map) {
-            if (map.isEmpty()) {
-                throw new NullPointerException();
-            }
-
-            return map.values()
-                    .stream()
-                    .flatMap(Function.identity())
-                    .map(stringStream -> stringStream.toLowerCase().substring(0, 1).toUpperCase())
-                    .filter(stringStream -> !stringStream.equals(""))
-                    .filter(stringStream -> !stringStream.equals(" "))
-                    .filter(stringStream -> stringStream != null)
-                    .distinct()
-                    .sorted();
+class MyUtils1401 {
+    public Stream<String> nameList(Map<String, Stream<String>> map) {
+        if (map.isEmpty()) {
+            throw new NullPointerException();
         }
-    }
 
+        return map.values()
+                .stream()
+                .flatMap(Function.identity())
+                .filter(Objects::nonNull)
+                .filter(num -> !num.isBlank())
+                .map(spaces -> spaces.replaceAll("\\s*", ""))
+                .map(String::toLowerCase)
+                .map(str -> str.substring(0, 1).toUpperCase() + str.substring(1))
+                .distinct()
+                .sorted();
+    }
 }
