@@ -15,7 +15,6 @@ class MyUtils1403 {
         return stream
                 .map(intStream -> intStream
                         .filter(num -> num > 0 && num % 2 == 0)
-
                         .min()
                         .orElse(0))
                 .mapToInt(Integer::valueOf).sum();
