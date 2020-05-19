@@ -29,23 +29,17 @@ class MyUtils1501 {
         this.schemaName = schemaName;
         String sql = "CREATE SCHEMA " + this.schemaName;
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void dropSchema() throws SQLException {
         statement = createStatement();
         String sql = "DROP SCHEMA " + schemaName;
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void useSchema() throws SQLException {
         statement = createStatement();
         String sql = "USE " + schemaName;
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void createTableRoles() throws SQLException {
         statement = createStatement();
         String sql = "CREATE TABLE ROLES " +
@@ -53,9 +47,7 @@ class MyUtils1501 {
                 "`roleName` VARCHAR(255), " +
                 "PRIMARY KEY ( id ))";
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void createTableDirections() throws SQLException {
         statement = createStatement();
         String sql = "CREATE TABLE DIRECTIONS " +
@@ -63,9 +55,7 @@ class MyUtils1501 {
                 "`directionName` VARCHAR(255), " +
                 "PRIMARY KEY ( id ))";
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void createTableProjects() throws SQLException {
         statement = createStatement();
         String sql = "CREATE TABLE PROJECTS " +
@@ -75,9 +65,7 @@ class MyUtils1501 {
                 "PRIMARY KEY ( `id` )," +
                 "FOREIGN KEY (`directionId`) REFERENCES DIRECTIONS (`id`))";
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void createTableEmployee() throws SQLException {
         statement = createStatement();
         String sql = "CREATE TABLE EMPLOYEE " +
@@ -89,54 +77,34 @@ class MyUtils1501 {
                 "FOREIGN KEY (`roleId`) REFERENCES ROLES (`id`)," +
                 "FOREIGN KEY (`projectId`) REFERENCES PROJECTS (`id`))";
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void dropTable(String tableName) throws SQLException {
         statement = createStatement();
         String sql = "DROP TABLE " + tableName;
         statement.executeUpdate(sql);
-        closeStatement();
     }
-
     public void insertTableRoles(String roleName) throws SQLException {
         statement = createStatement();
         String sql = "INSERT INTO ROLES (`roleName`) VALUES ('" + roleName + "');";
         statement.execute(sql);
-        closeStatement();
     }
-
     public void insertTableDirections(String directionName) throws SQLException {
         statement = createStatement();
         String sql = "INSERT INTO DIRECTIONS (`directionName`) VALUES ('" + directionName + "');";
         statement.execute(sql);
-        closeStatement();
     }
-
     public void insertTableProjects(String projectName, String directionName) throws SQLException {
-        PreparedStatement projectInsert = connection.prepareStatement("INSERT INTO DIRECTIONS (`directionName`) VALUES ((?));", Statement.RETURN_GENERATED_KEYS);
-        projectInsert.setString(1, directionName);
-        projectInsert.execute();
-
-        var generatedKeys = projectInsert.getGeneratedKeys();
-        String id = generatedKeys.toString();
-
-        PreparedStatement direction = connection.prepareStatement("INSERT INTO PROJECTS (`projectName`,`directionId`) VALUES ((?,?));");
-        direction.setString(1, projectName);
-        direction.setString(2, id);
-        direction.execute();
-
-        projectInsert.close();
-        direction.close();
+        statement = createStatement();
+        int directionId = getDirectionId(directionName);
+        statement.execute("INSERT INTO PROJECTS (projectName, directionId) VALUES ('" + projectName + "', " + directionId + ");");
     }
-
     public void insertTableEmployee(String firstName, String roleName, String projectName) throws SQLException {
         statement = createStatement();
-        String sql = "INSERT INTO EMPLOYEE (`firstName`,`roleName`,`projectName`) VALUES ('" + firstName + "," + roleName + ", " + projectName + "',);";
+        int roleId = getRoleId(roleName);
+        int projectId = getProjectId(projectName);
+        String sql = "INSERT INTO EMPLOYEE (`firstName`, `roleId`, `projectId`) VALUES ('" + firstName + "', " + roleId + ", " + projectId + ");";
         statement.execute(sql);
-        closeStatement();
     }
-
     public int getRoleId(String roleName) throws SQLException {
         statement = createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT id FROM ROLES WHERE roleName='" + roleName + "';");
@@ -145,10 +113,8 @@ class MyUtils1501 {
             role = resultSet.getInt(1);
         }
         resultSet.close();
-        closeStatement();
         return role;
     }
-
     public int getDirectionId(String directionName) throws SQLException {
         statement = createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT id FROM DIRECTIONS WHERE directionName='" + directionName + "';");
@@ -157,32 +123,25 @@ class MyUtils1501 {
             direction = resultSet.getInt(1);
         }
         resultSet.close();
-        closeStatement();
         return direction;
     }
-
     public int getProjectId(String projectName) throws SQLException {
         statement = createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT id FROM PROJECTS WHERE projectName='" + projectName + "';");
-        int project = -1;
+        int res = -1;
         if (resultSet.next()) {
-            project = resultSet.getInt(1);
+            res = resultSet.getInt(1);
         }
-        resultSet.close();
-        closeStatement();
-        return project;
+        return res;
     }
-
     public int getEmployeeId(String firstName) throws SQLException {
         statement = createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT id FROM EMPLOYEE WHERE firstName='" + firstName + "';");
-        int employee = -1;
+        int res = -1;
         if (resultSet.next()) {
-            employee = resultSet.getInt(1);
+            res = resultSet.getInt(1);
         }
-        resultSet.close();
-        closeStatement();
-        return employee;
+        return res;
     }
 //    }
 //    public List<String> getAllRoles() throws SQLException {
