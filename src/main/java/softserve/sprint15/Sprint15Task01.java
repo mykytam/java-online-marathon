@@ -3,6 +3,8 @@ package softserve.sprint15;
 // Develop a database with tables Roles, Employee, Directions and Projects.
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class MyUtils1501 {
     private Connection connection;
@@ -134,6 +136,7 @@ class MyUtils1501 {
         }
         return res;
     }
+
     public int getEmployeeId(String firstName) throws SQLException {
         statement = createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT id FROM EMPLOYEE WHERE firstName='" + firstName + "';");
@@ -143,26 +146,94 @@ class MyUtils1501 {
         }
         return res;
     }
-//    }
-//    public List<String> getAllRoles() throws SQLException {
-//        // code
-//    }
-//    public List<String> getAllDirestion() throws SQLException {
-//        // code
-//    }
-//    public List<String> getAllProjects() throws SQLException {
-//        // code
-//    }
-//    public List<String> getAllEmployee() throws SQLException {
-//        // code
-//    }
-//    public List<String> getAllDevelopers() throws SQLException {
-//        // code
-//    }
-//    public List<String> getAllJavaProjects() throws SQLException {
-//        // code
-//    }
-//    public List<String> getAllJavaDevelopers() throws SQLException {
-//        // code
-//    }
+
+    public List<String> getAllRoles() throws SQLException {
+        statement = createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT roleName FROM ROLES ;");
+
+        List<String> rolesList = new ArrayList<>();
+        while (resultSet.next()) {
+            rolesList.add(resultSet.getString("roleName"));
+        }
+        return rolesList;
+
+    }
+
+    public List<String> getAllDirestion() throws SQLException {
+        statement = createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT directionName FROM DIRECTIONS ;");
+
+        List<String> directionsList = new ArrayList<>();
+        while (resultSet.next()) {
+            directionsList.add(resultSet.getString("directionName"));
+        }
+        return directionsList;
+    }
+
+    public List<String> getAllProjects() throws SQLException {
+        statement = createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT projectName FROM PROJECTS ;");
+
+        List<String> projectsList = new ArrayList<>();
+        while (resultSet.next()) {
+            projectsList.add(resultSet.getString("projectName"));
+        }
+        return projectsList;
+    }
+
+    public List<String> getAllEmployee() throws SQLException {
+        statement = createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT firstName FROM EMPLOYEE ;");
+
+        List<String> employeeList = new ArrayList<>();
+        while (resultSet.next()) {
+            employeeList.add(resultSet.getString("firstName"));
+        }
+        return employeeList;
+    }
+
+    public List<String> getAllDevelopers() throws SQLException {
+        statement = createStatement();
+        int roleId = getRoleId("Developer");
+        ResultSet resultSet = statement.executeQuery("SELECT firstName FROM EMPLOYEE WHERE `roleId`='" + roleId + "';");
+
+        List<String> employeeList = new ArrayList<>();
+        while (resultSet.next()) {
+            employeeList.add(resultSet.getString("firstName"));
+        }
+        return employeeList;
+    }
+
+    public List<String> getAllJavaProjects() throws SQLException {
+        statement = createStatement();
+        int directionId = getDirectionId("Java");
+        ResultSet resultSet = statement.executeQuery("SELECT projectName FROM PROJECTS WHERE `directionId`='" + directionId + "';");
+
+        List<String> javaList = new ArrayList<>();
+        while (resultSet.next()) {
+            javaList.add(resultSet.getString("projectName"));
+        }
+        return javaList;
+    }
+
+    public List<String> getAllJavaDevelopers() throws SQLException {
+        statement = createStatement();
+        int roleId = getRoleId("Developer");
+        int directionId = getDirectionId("Java");
+
+        ResultSet resultSetForProject = statement.executeQuery("SELECT id FROM PROJECTS WHERE `directionId`='" + directionId + "';");
+
+        List<Integer> projectId = new ArrayList<>();
+        while (resultSetForProject.next()) {
+            projectId.add(resultSetForProject.getInt("id"));
+        }
+
+        ResultSet resultSet = statement.executeQuery("SELECT firstName FROM EMPLOYEE WHERE `roleId`='" + roleId + "' AND (`projectId`=" + projectId.get(0) + " OR `projectId`=" + projectId.get(1) + ");");
+
+        List<String> employeeList = new ArrayList<>();
+        while (resultSet.next()) {
+            employeeList.add(resultSet.getString("firstName"));
+        }
+        return employeeList;
+    }
 }
