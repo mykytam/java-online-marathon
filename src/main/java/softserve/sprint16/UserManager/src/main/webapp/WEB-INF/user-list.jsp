@@ -6,7 +6,11 @@
     <title>Users List</title>
 </head>
 <body>
-<table>
+
+<%@include file="header.html" %>
+<br><br>
+
+<table border="1">
     <tr>
         <th>Id</th>
         <th>Username</th>
