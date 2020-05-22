@@ -23,8 +23,14 @@ public class ReadRecordServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        NameAddressPair mem = addressBook.read(firstName, lastName);
-        request.setAttribute("record", mem);
-        request.getRequestDispatcher("/WEB-INF/read-record.jsp").forward(request, response);
+        NameAddressPair pair = addressBook.read(firstName, lastName);
+        request.setAttribute("record", pair);
+
+        if (pair == null) {
+            response.setStatus(404);
+            request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/read-record.jsp").forward(request, response);
+        }
     }
 }
