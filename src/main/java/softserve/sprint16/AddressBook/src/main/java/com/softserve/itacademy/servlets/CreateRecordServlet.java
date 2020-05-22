@@ -28,8 +28,12 @@ public class CreateRecordServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String address = request.getParameter("address");
 
-        addressBook.create(firstName, lastName, address);
-        response.sendRedirect("/records/list");
+
+        if (addressBook.create(firstName, lastName, address) == false) {
+            response.sendRedirect("/records/create?error");
+        } else {
+            response.sendRedirect("/records/list");
+        }
     }
 
 }

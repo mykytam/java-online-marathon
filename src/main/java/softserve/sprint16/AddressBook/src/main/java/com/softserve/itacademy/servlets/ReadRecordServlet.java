@@ -1,6 +1,7 @@
 package com.softserve.itacademy.servlets;
 
 import com.softserve.itacademy.model.AddressBook;
+import com.softserve.itacademy.model.NameAddressPair;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +23,8 @@ public class ReadRecordServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        addressBook.read(firstName, lastName);
-        request.setAttribute("record", addressBook);
+        NameAddressPair mem = addressBook.read(firstName, lastName);
+        request.setAttribute("record", mem);
         request.getRequestDispatcher("/WEB-INF/read-record.jsp").forward(request, response);
     }
 }

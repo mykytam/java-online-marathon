@@ -7,6 +7,12 @@
 <%@include file="header.html" %>
 <br><br>
 
+<%
+    String error = request.getParameter("error");
+    if (error != null) {
+        out.println("<p>A record with a given key already exists in the Address Book!</p>");
+    }
+%>
 <form action="/records/create" method="post">
     <table>
         <tr>

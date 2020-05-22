@@ -1,4 +1,3 @@
-<%@ page import="com.softserve.itacademy.model.AddressBook" %>
 <%@ page import="com.softserve.itacademy.model.NameAddressPair" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -11,10 +10,10 @@
 <form action="/records/update" method="post">
 
     <%
-        for (NameAddressPair nameAddressPair : (AddressBook) request.getAttribute("recordToUpdate")) {
-            String fName = nameAddressPair.getPerson().getFirstName();
-            String lName = nameAddressPair.getPerson().getLastName();
-            String address = nameAddressPair.getAddress();
+        NameAddressPair nameAddressPair = (NameAddressPair) request.getAttribute("recordToUpdate");
+        String fName = nameAddressPair.getPerson().getFirstName();
+        String lName = nameAddressPair.getPerson().getLastName();
+        String address = nameAddressPair.getAddress();
     %>
 
     <table>
@@ -53,9 +52,7 @@
             </tr>
 
         </table>
-            <%
-        }
-    %>
+
 
 </form>
 </body>

@@ -38,11 +38,11 @@ public class AddressBook implements Iterable<NameAddressPair> {
         return true;
     }
 
-    public String read(String firstName, String lastName) {
+    public NameAddressPair read(String firstName, String lastName) {
         Person person = new Person(firstName, lastName);
         for (int i = 0; i < counter; i++) {
             if (addressBook[i].getPerson().equals(person)) {
-                return addressBook[i].getAddress();
+                return addressBook[i];
             }
         }
         return null;
