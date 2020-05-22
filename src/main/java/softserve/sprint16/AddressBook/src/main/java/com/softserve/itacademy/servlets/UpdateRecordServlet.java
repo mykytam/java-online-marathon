@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/records/read")
-public class ReadRecordServlet extends HttpServlet {
+@WebServlet("/records/update")
+public class UpdateRecordServlet extends HttpServlet {
 
     private AddressBook addressBook;
 
@@ -23,7 +23,17 @@ public class ReadRecordServlet extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         addressBook.read(firstName, lastName);
-        request.setAttribute("record", addressBook);
-        request.getRequestDispatcher("/WEB-INF/read-record.jsp").forward(request, response);
+        request.setAttribute("recordToUpdate", addressBook);
+        request.getRequestDispatcher("/WEB-INF/update-record.jsp").forward(request, response);
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String address = request.getParameter("address");
+
+        addressBook.update(firstName, lastName, address);
+        response.sendRedirect("/records/list");
+    }
+
 }

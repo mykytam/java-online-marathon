@@ -21,25 +21,29 @@
 
     <%
         int indexCounter = 1;
+
         for (NameAddressPair nameAddressPair : (AddressBook) request.getAttribute("records")) {
+            String fName = nameAddressPair.getPerson().getFirstName();
+            String lName = nameAddressPair.getPerson().getLastName();
+            String address = nameAddressPair.getAddress();
     %>
     <tr>
         <td><%=indexCounter++%>
         </td>
-        <td><%=nameAddressPair.getPerson().getFirstName()%>
+        <td><%=fName%>
         </td>
-        <td><%=nameAddressPair.getPerson().getLastName()%>
+        <td><%=lName%>
         </td>
-        <td><%=nameAddressPair.getAddress()%>
-        </td>
-        <td>
-            <a href="/records/read?firstName=<%=nameAddressPair.getPerson().getFirstName()%>&lastName<%=nameAddressPair.getPerson().getLastName()%>">Read</a>
+        <td><%=address%>
         </td>
         <td>
-            <a href="/records/update?firstName=<%=nameAddressPair.getPerson().getFirstName()%>&lastName<%=nameAddressPair.getPerson().getLastName()%>">Update</a>
+            <a href="/records/read?firstName=<%=fName%>&lastName=<%=lName%>">Read</a>
         </td>
         <td>
-            <a href="/records/delete?firstName=<%=nameAddressPair.getPerson().getFirstName()%>&lastName<%=nameAddressPair.getPerson().getLastName()%>">Delete</a>
+            <a href="/records/update?firstName=<%=fName%>&lastName=<%=lName%>">Update</a>
+        </td>
+        <td>
+            <a href="/records/delete?firstName=<%=fName%>&lastName=<%=lName%>">Delete</a>
         </td>
     </tr>
     <%

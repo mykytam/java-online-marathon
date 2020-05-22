@@ -10,14 +10,20 @@
 <%@include file="header.html" %>
 <br><br>
 <%
-    for (NameAddressPair nameAddressPair : (AddressBook) request.getAttribute("records")) {
+    for (NameAddressPair nameAddressPair : (AddressBook) request.getAttribute("record")) {
+        String fName = nameAddressPair.getPerson().getFirstName();
+        String lName = nameAddressPair.getPerson().getLastName();
+        String address = nameAddressPair.getAddress();
 %>
-<p>First Name:<%=nameAddressPair.getPerson().getFirstName()%>
+<p>First Name: <%=fName%>
 </p>
-<p>Last Name:<%=nameAddressPair.getPerson().getLastName()%>
+<p>Last Name: <%=lName%>
 </p>
-<p>Address:<%=nameAddressPair.getAddress()%>
+<p>Address: <%=address%>
 </p>
+<%
+    }
+%>
 
 </body>
 </html>
