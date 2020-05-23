@@ -34,12 +34,14 @@ public class UpdateRecordServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String address = request.getParameter("address");
+        String oldFirstName = request.getParameter("oldFirstName");
+        String oldLastName = request.getParameter("oldLastName");
 
-        addressBook.update(firstName, lastName, address);
+        addressBook.update(firstName, lastName, address, oldFirstName, oldLastName);
         response.sendRedirect("/records/list");
     }
 

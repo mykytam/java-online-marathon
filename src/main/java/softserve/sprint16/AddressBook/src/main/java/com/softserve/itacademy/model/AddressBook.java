@@ -44,11 +44,13 @@ public class AddressBook implements Iterable<NameAddressPair> {
         return null;
     }
 
-    public boolean update(String firstName, String lastName, String address) {
-        Person person = new Person(firstName, lastName);
+    public boolean update(String firstName, String lastName, String address, String oldFirstName, String oldLastName) {
+        Person person = new Person(oldFirstName, oldLastName);
         for (int i = 0; i < counter; i++) {
             if (addressBook[i].getPerson().equals(person)) {
                 addressBook[i].setAddress(address);
+                addressBook[i].getPerson().setFirstName(firstName);
+                addressBook[i].getPerson().setLastName(lastName);
                 return true;
             }
         }

@@ -22,8 +22,8 @@ public class DeleteRecordServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        addressBook.delete(firstName, lastName);
-        if (addressBook.delete(firstName, lastName) == false) {
+
+        if (!addressBook.delete(firstName, lastName)) {
             response.setStatus(404);
             request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
         } else {
