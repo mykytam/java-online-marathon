@@ -3,10 +3,6 @@ package com.softserve.itacademy.model;
 import java.util.Arrays;
 import java.util.Iterator;
 
-enum SortOrder {
-    ASC, DESC
-}
-
 public class AddressBook implements Iterable<NameAddressPair> {
     private static AddressBook addressBookInstance;
     private NameAddressPair[] addressBook;

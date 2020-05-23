@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.softserve.itacademy.model.SortOrder.ASC;
+import static com.softserve.itacademy.model.SortOrder.DESC;
+
 @WebServlet("/records/list")
 public class RecordsListServlet extends HttpServlet {
 
@@ -22,7 +25,17 @@ public class RecordsListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/record-list.jsp");
-        request.setAttribute("records", addressBook);
+
+        if (request.getParameter("sort") == null) {
+            request.setAttribute("records", addressBook);
+        } else if (request.getParameter("sort").equals("asc")) {
+            addressBook.sortedBy(ASC);
+            request.setAttribute("records", addressBook);
+        } else if (request.getParameter("sort").equals("desc")) {
+            addressBook.sortedBy(DESC);
+            request.setAttribute("records", addressBook);
+        }
+
         requestDispatcher.forward(request, response);
     }
 }

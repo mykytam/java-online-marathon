@@ -1,5 +1,6 @@
 <%@ page import="com.softserve.itacademy.model.AddressBook" %>
 <%@ page import="com.softserve.itacademy.model.NameAddressPair" %>
+<%@ page import="static com.softserve.itacademy.model.SortOrder.ASC" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +10,7 @@
 
 <%@include file="header.html" %>
 <br><br>
+<p>Sort by: <a href="/records/list?sort=asc">Ascending</a> or <a href="/records/list?sort=desc">Descending</a></p>
 
 <table border="1">
     <tr>
@@ -21,7 +23,6 @@
 
     <%
         int indexCounter = 1;
-
         for (NameAddressPair nameAddressPair : (AddressBook) request.getAttribute("records")) {
             String fName = nameAddressPair.getPerson().getFirstName();
             String lName = nameAddressPair.getPerson().getLastName();
